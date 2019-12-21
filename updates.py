@@ -1,5 +1,6 @@
 import redis
 import os
+import sys
 import configparser
 import logging
 
@@ -36,6 +37,12 @@ handler.setFormatter(formatter)
 update_logger = logging.getLogger(__name__)
 update_logger.setLevel(logging.INFO)
 update_logger.addHandler(handler)
+# Conditional logging to stdout.
+log_stdout = cfg.get('Log', 'stdout')
+if log_stdout:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s"))
+    update_logger.addHandler(console_handler)
 
 
 def check_for_updates():

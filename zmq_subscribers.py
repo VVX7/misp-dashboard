@@ -25,6 +25,12 @@ if not os.path.exists(logDir):
     os.makedirs(logDir)
 logging.basicConfig(filename=logPath, filemode='a', level=logging.INFO)
 logger = logging.getLogger('zmq_subscriber')
+# Conditional logging to stdout.
+log_stdout = cfg.get('Log', 'stdout')
+if log_stdout:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s"))
+    logger.addHandler(console_handler)
 
 CHANNEL = cfg.get('RedisLog', 'channel')
 LISTNAME = cfg.get('RedisLIST', 'listName')

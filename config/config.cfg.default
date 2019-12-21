@@ -54,6 +54,7 @@ dispatcher_filename=zmq_dispatcher.log
 subscriber_filename=zmq_subscriber.log
 helpers_filename=helpers.log
 update_filename=updates.log
+stdout = True
 
 [RedisGlobal]
 host=localhost

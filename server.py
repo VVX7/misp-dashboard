@@ -10,6 +10,7 @@ import os
 import re
 from datetime import timedelta
 import random
+import sys
 from time import gmtime as now
 from time import sleep, strftime
 
@@ -31,6 +32,11 @@ cfg.read(configfile)
 
 logger = logging.getLogger('werkzeug')
 logger.setLevel(logging.ERROR)
+log_stdout = cfg.get('Log', 'stdout')
+if log_stdout:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s"))
+    logger.addHandler(console_handler)
 
 server_host = cfg.get("Server", "host")
 server_port = cfg.getint("Server", "port")

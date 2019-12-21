@@ -35,6 +35,12 @@ except PermissionError as error:
     print("Please fix the above and try again.")
     sys.exit(126)
 logger = logging.getLogger('zmq_dispatcher')
+# Conditional logging to stdout.
+log_stdout = cfg.get('Log', 'stdout')
+if log_stdout:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s"))
+    logger.addHandler(console_handler)
 
 LISTNAME = cfg.get('RedisLIST', 'listName')
 
