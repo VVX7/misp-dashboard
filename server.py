@@ -158,8 +158,11 @@ class User(UserMixin):
         # Authentication is successful if MISP returns a redirect to '/users/routeafterlogin'.
         if '/users/routeafterlogin' in redirect_location:
             # Logged in, check if logged in user can access the dashboard
-            me_json = session.get(misp_user_me_page).json()
-            dashboard_access = me_json.get('UserSetting', {}).get('dashboard_access', False)
+            try:
+                me_json = session.get(misp_user_me_page).json()
+                dashboard_access = me_json.get('UserSetting', {}).get('dashboard_access', False)
+            except :
+                return (None, 'Error, cannot reach MISP')
             if dashboard_access is True or dashboard_access == 1:
                 return (True, '')
             else:
