@@ -162,7 +162,7 @@ class User(UserMixin):
                 me_json = session.get(misp_user_me_page).json()
                 dashboard_access = me_json.get('UserSetting', {}).get('dashboard_access', False)
             except :
-                return (None, 'Error, cannot reach MISP')
+                return (None, 'Error, Empty user setting')
             if dashboard_access is True or dashboard_access == 1:
                 return (True, '')
             else:
