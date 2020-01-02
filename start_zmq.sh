@@ -16,8 +16,8 @@ if [ -e "${DIR}/DASHENV/bin/python" ]; then
     echo "dashboard virtualenv seems to exist, good"
     ENV_PY="${DIR}/DASHENV/bin/python"
 else
-    echo "Please make sure you have a dashboard environment, au revoir"
-    exit 1
+    echo "No virtualenv, defaulting to system python"
+    ENV_PY=$(which python)
 fi
 
 PID_SCREEN=$(screen -ls | grep ${SCREEN_NAME} | cut -f2 | cut -d. -f1)
